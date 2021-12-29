@@ -53,12 +53,13 @@ class Scraper:
         if not 'Buy and Trade' in driver.title:
             pass
             # return 
-
-        while not username:
-            username = input("Enter username: ")
-
-        while not password:
-            password = getpass.getpass(prompt = "Enter password: ")
+        
+        if not username or not password:
+            while not driver.current_url == "https://app.earth2.io/":
+                pass
+            driver.click(paths['notice_popup'])
+            driver.save_cookies()
+            return
 
         driver.write(paths['username_input'], username)
         driver.write(paths['password_input'], password)
