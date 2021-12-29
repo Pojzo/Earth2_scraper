@@ -1,6 +1,8 @@
 import os
 import sys
 try:
+    print("------------------------------------")
+    print("Installing requirements")
     os.system("pip install -r requirements.txt")
 except:
     print("[ERROR] Pip not installed")
@@ -24,13 +26,5 @@ except:
     print("[ERROR] Failed to install chromedriver")
 
 print(driver.capabilities['browserVersion'])
-
-# version = str(driver.capabilities['browserVersion']).split('.')[0]
-# os.rename(f"{version}/chromedriver", "chromedriver")
-# hutil.rmtree(version)
-
-# install requirements
-print("------------------------------------")
-print("Installing requirements")
 
 driver.quit()
