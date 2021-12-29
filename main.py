@@ -8,6 +8,7 @@ import os
 import sys
 import json
 import getpass
+import pickle
 from glob import glob
 from paths import dic as paths
 
@@ -42,6 +43,17 @@ class Scraper:
 
         driver.write(paths['username_input'], username)
         driver.write(paths['password_input'], password)
+        if os.path.isfile("cookies.pkl"):
+            pass
+            # driver.load_cookies()
+        else:
+            pass 
+            # driver.save_cookies()
+
+        if driver.click(paths['login_btn_continue']):
+            print("Successfully logged in !!!")
+        else:
+            print("[ERROR] Couldn't log in")
 
 
 class Driver(webdriver.Chrome):
@@ -125,6 +137,18 @@ class Driver(webdriver.Chrome):
         if self.element_exists(xpath):
             inpt = self.find_element(By.XPATH, xpath)
             inpt.send_keys(text)
+
+    def save_cookies(self) -> None:
+        """ dumps cookies to cookies.pkl """
+
+        pickle.dump(self.get_cookies(), open("cookies.pkl", "wb"))
+
+    def load_cookies(self) -> None:
+        """ loads cookies from cookies.pkl """
+
+        cookies = pickle.load(open("cookies.pkl", "rb"))
+        for cookie in cookies:
+            self.add_cookie(cookie)
 
 
 driver = Driver({"fullscreen": True})

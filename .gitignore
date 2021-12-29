@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 96
+cookies.pkl
 
 # C extensions
 *.so
