@@ -25,6 +25,17 @@ try:
 except:
     print("[ERROR] Failed to install chromedriver")
 
-print(driver.capabilities['browserVersion'])
+print("Version of chromedriver: ", driver.capabilities['browserVersion'])
+print("------------------------------------")
+
+if not os.path.isfile("credentials.py"):
+    print("credentials.py don't exist, creating")
+    with open("credentials.py", "w") as file:
+        string = """credentials = {
+    "username": "",
+    "password": ""
+}"""
+        file.write(string)
+
 
 driver.quit()

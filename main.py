@@ -12,17 +12,32 @@ import pickle
 from glob import glob
 from paths import dic as paths
 
+try:
+    from credentials import credentials
+except:
+    credentials = {"username": "", "password": ""}
+    pass
+
 
 DEBUG = True
 
-BUTTON_CLICK_RETRY = 1 # 1 second delay between button clicks
 
 class Scraper:
     def __init__(self, driver: webdriver.Chrome):
         driver.get(paths['target_website'])        
+        driver.click(paths['notice_popup'])
+
+        # if cookies exist
+        if os.path.isfile("cookies.pkl"):
+            driver.load_cookies()
+            driver.refresh()
+            driver.click(paths['notice_popup'])
+            return
+
         self.login(driver)
 
-    def login(self, driver: webdriver.Chrome, username: str = "", password: str = "") -> None:
+    def login(self, driver: webdriver.Chrome, username: str = credentials['username'], password: str =
+    credentials['password']) -> None:
         """ click on login button, enter credentials, and login user 
             @driver: instance of Driver class
             @username: username for https://www.earth2.io
@@ -35,6 +50,10 @@ class Scraper:
             print("[ERROR] Couldn't log in")
             return
 
+        if not 'Buy and Trade' in driver.title:
+            pass
+            # return 
+
         while not username:
             username = input("Enter username: ")
 
@@ -43,12 +62,6 @@ class Scraper:
 
         driver.write(paths['username_input'], username)
         driver.write(paths['password_input'], password)
-        if os.path.isfile("cookies.pkl"):
-            pass
-            # driver.load_cookies()
-        else:
-            pass 
-            # driver.save_cookies()
 
         if driver.click(paths['login_btn_continue']):
             print("Successfully logged in !!!")
@@ -56,9 +69,11 @@ class Scraper:
             print("[ERROR] Couldn't log in")
 
 
+        driver.save_cookies()
+
 class Driver(webdriver.Chrome):
     def __init__(self, settings: str = "", *args, **kwargs):
-                
+
         self.version = self.get_version()
         if self.version is None:
             print("[ERROR] Failed to find chromedriver, make sure to run setup.py")
@@ -86,7 +101,7 @@ class Driver(webdriver.Chrome):
                 print(folder, file, file == "chromedriver")
                 if file == "chromedriver":
                     return folder
-            
+
     def get_path(self) -> str:
         """ returns executable path to chromedriver """
 
@@ -141,10 +156,16 @@ class Driver(webdriver.Chrome):
     def save_cookies(self) -> None:
         """ dumps cookies to cookies.pkl """
 
+        if DEBUG:
+            print("[DEBUG] Saving cookies")
+
         pickle.dump(self.get_cookies(), open("cookies.pkl", "wb"))
 
     def load_cookies(self) -> None:
         """ loads cookies from cookies.pkl """
+
+        if DEBUG:
+            print("[DEBUG] Loading cookies")
 
         cookies = pickle.load(open("cookies.pkl", "rb"))
         for cookie in cookies:
@@ -152,6 +173,7 @@ class Driver(webdriver.Chrome):
 
 
 driver = Driver({"fullscreen": True})
+
 time.sleep(5)
 
 # driver.quit()
