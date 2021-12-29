@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-chromedriver
+96
 
 # C extensions
 *.so
