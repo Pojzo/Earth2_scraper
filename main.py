@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 import time
 import os
+import sys
 from glob import glob
 
 target_website = "https:/www.earth2.io"
@@ -42,7 +43,8 @@ class Driver(webdriver.Chrome):
     def get_path(self) -> str:
         """ returns executable path to chromedriver """
 
-        path = os.path.join(str(self.version), "chromedriver")
+        exec_ending = ".exe" if sys.platform.startswith('win') else ""
+        path = os.path.join(str(self.version), "chromedriver" + exec_ending)
         if os.path.isfile(path):
             return path
         return None
