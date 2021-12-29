@@ -1,6 +1,14 @@
+import os
+import sys
+try:
+    os.system("pip install -r requirements.txt")
+except:
+    print("[ERROR] Pip not installed")
+    sys.exit()
+
+
 import chromedriver_autoinstaller
 import shutil
-import os
 from selenium import webdriver
 
 print("Checking if chromedriver is installed")
@@ -24,10 +32,5 @@ print(driver.capabilities['browserVersion'])
 # install requirements
 print("------------------------------------")
 print("Installing requirements")
-try:
-    os.system("pip install -r requirements.txt")
-except:
-    print("[ERROR] Pip not installed")
-
 
 driver.quit()
