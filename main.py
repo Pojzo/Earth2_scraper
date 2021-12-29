@@ -74,6 +74,9 @@ class Scraper:
 class Driver(webdriver.Chrome):
     def __init__(self, settings: str = "", *args, **kwargs):
 
+        exec_ending = ".exe" if sys.platform.startswith('win') else ""
+        self.exec_name = "chromedriver" + exec_ending
+
         self.version = self.get_version()
         if self.version is None:
             print("[ERROR] Failed to find chromedriver, make sure to run setup.py")
@@ -98,15 +101,13 @@ class Driver(webdriver.Chrome):
 
         for folder in glob("./*/"):
             for file in os.listdir(folder):
-                print(folder, file, file == "chromedriver")
-                if file == "chromedriver":
+                if file == self.exec_name:
                     return folder
 
     def get_path(self) -> str:
         """ returns executable path to chromedriver """
 
-        exec_ending = ".exe" if sys.platform.startswith('win') else ""
-        path = os.path.join(str(self.version), "chromedriver" + exec_ending)
+        path = os.path.join(str(self.version), self.exec_name)
         if os.path.isfile(path):
             return path
         return None
