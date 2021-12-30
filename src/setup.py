@@ -28,9 +28,9 @@ except:
 print("Version of chromedriver: ", driver.capabilities['browserVersion'])
 print("------------------------------------")
 
-if not os.path.isfile("credentials.py"):
+if not os.path.isfile("src/credentials.py"):
     print("credentials.py don't exist, creating")
-    with open("credentials.py", "w") as file:
+    with open("src/credentials.py", "w") as file:
         string = """credentials = {
     "username": "",
     "password": ""
