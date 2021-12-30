@@ -10,67 +10,12 @@ import json
 import getpass
 import pickle
 from glob import glob
-from paths import dic as paths
-
-try:
-    from credentials import credentials
-except:
-    credentials = {"username": "", "password": ""}
-    pass
+from paths import paths
+from scraper import Scraper
+from config import DEBUG
 
 
 DEBUG = True
-
-
-class Scraper:
-    def __init__(self, driver: webdriver.Chrome):
-        driver.get(paths['target_website'])        
-        driver.click(paths['notice_popup'])
-
-        # if cookies exist
-        if os.path.isfile("cookies.pkl"):
-            driver.load_cookies()
-            driver.refresh()
-            driver.click(paths['notice_popup'])
-            return
-
-        self.login(driver)
-
-    def login(self, driver: webdriver.Chrome, username: str = credentials['username'], password: str =
-    credentials['password']) -> None:
-        """ click on login button, enter credentials, and login user 
-            @driver: instance of Driver class
-            @username: username for https://www.earth2.io
-            @password: password for https://www.earth2.io
-
-            if username or password is not given, user will be input them in the terminal
-        """
-
-        if not driver.click(paths['login_btn']):
-            print("[ERROR] Couldn't log in")
-            return
-
-        if not 'Buy and Trade' in driver.title:
-            pass
-            # return 
-        
-        if not username or not password:
-            while not driver.current_url == "https://app.earth2.io/":
-                pass
-            driver.click(paths['notice_popup'])
-            driver.save_cookies()
-            return
-
-        driver.write(paths['username_input'], username)
-        driver.write(paths['password_input'], password)
-
-        if driver.click(paths['login_btn_continue']):
-            print("Successfully logged in !!!")
-        else:
-            print("[ERROR] Couldn't log in")
-
-
-        driver.save_cookies()
 
 class Driver(webdriver.Chrome):
     def __init__(self, settings: str = "", *args, **kwargs):
@@ -138,6 +83,7 @@ class Driver(webdriver.Chrome):
             button.click()
             if DEBUG:
                 print("[DEBUG] Clicking on {}".format(xpath))
+            time.sleep(1)
             return True
 
         return False
@@ -172,10 +118,3 @@ class Driver(webdriver.Chrome):
         cookies = pickle.load(open("cookies.pkl", "rb"))
         for cookie in cookies:
             self.add_cookie(cookie)
-
-
-driver = Driver({"fullscreen": True})
-
-time.sleep(5)
-
-# driver.quit()

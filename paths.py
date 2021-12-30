@@ -1,4 +1,4 @@
-dic = {
+paths = {
     "target_website": "https://app.earth2.io",
     "login_btn": '//*[@id="loginBtn"]',
     "username_input": '//*[@id="username"]',
