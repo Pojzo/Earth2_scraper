@@ -33,14 +33,12 @@ class Driver(webdriver.Chrome):
             print("[ERROR] Failed to find chromedriver, make sure to run setup.py")
             return
 
+        self.scraper = Scraper(self)
         super().__init__(settings, service = Service(self.executable_path))
 
-        # if "fullscreen" in kwargs:
-        #   if kwargs["fullscreen"]:
         self.maximize_window()
 
         time.sleep(1)
-        self.scraper = Scraper(self)
 
     def get_version(self) -> str:
         """ returns version of chromedriver """
@@ -58,9 +56,10 @@ class Driver(webdriver.Chrome):
             return path
         return None
 
-    def login(self) -> None:
-        """ login to earth2.io with Scraper """
+    def start(self) -> None:
         self.scraper.start(self)
+
+    def login(self) -> None:
         self.scraper.login(self)
 
     def element_exists(self, xpath: str) -> bool:
@@ -123,3 +122,6 @@ class Driver(webdriver.Chrome):
         cookies = pickle.load(open("cookies.pkl", "rb"))
         for cookie in cookies:
             self.add_cookie(cookie)
+
+    def scrape_profile(self):
+        self.scraper.scrape_profile(self)

@@ -1,6 +1,7 @@
 from selenium import webdriver
 from paths import paths
 import os
+import time
 from config import DEBUG
 
 class Credentials:
@@ -21,7 +22,7 @@ class Scraper:
             @driver: instance of Driver class
         """
 
-        driver.get(paths['target_website'])        
+        driver.get(paths['links']['target_website'])        
         driver.click(paths['notice_popup'])
 
         if os.path.isfile("cookies.pkl"):
@@ -74,4 +75,8 @@ class Scraper:
 
         driver.save_cookies()
         driver.click(paths['notice_popup'])
+    
+    def scrape_profile(self, driver: webdriver.Chrome) -> None:
+        driver.get(paths['links']['profile_link'])
+        time.sleep(5)
 

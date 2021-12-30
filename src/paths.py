@@ -1,5 +1,8 @@
 paths = {
-    "target_website": "https://app.earth2.io",
+    "links": {
+            "target_website": "https://app.earth2.io",
+            "profile_link": "https://app.earth2.io/#profile"
+        },
     "login_btn": '//*[@id="loginBtn"]',
     "username_input": '//*[@id="username"]',
     "password_input": '//*[@id="password"]',
