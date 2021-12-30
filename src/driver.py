@@ -58,6 +58,11 @@ class Driver(webdriver.Chrome):
             return path
         return None
 
+    def login(self) -> None:
+        """ login to earth2.io with Scraper """
+        self.scraper.start(self)
+        self.scraper.login(self)
+
     def element_exists(self, xpath: str) -> bool:
         """ returns true if element exists on current page
             @xpath: xpath of element to find

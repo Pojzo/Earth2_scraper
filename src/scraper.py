@@ -13,24 +13,34 @@ class Credentials:
 
 class Scraper:
     def __init__(self, driver: webdriver.Chrome):
+        self.credentials = Credentials()
+        self.logged_in = False
+
+    def start(self, driver: webdriver.Chrome):
+        """ load target website, load cookies and login 
+            @driver: instance of Driver class
+        """
+
         driver.get(paths['target_website'])        
         driver.click(paths['notice_popup'])
 
-        # if cookies exist
         if os.path.isfile("cookies.pkl"):
             driver.load_cookies()
             driver.refresh()
             driver.click(paths['notice_popup'])
+            self.logged_in = True
             return
 
-        self.credentials = Credentials()
-        self.login(driver)
 
     def login(self, driver: webdriver.Chrome) -> None:
 
         """ click on login button, enter credentials, and login user 
             @driver: instance of Driver class
         """
+
+        if self.logged_in:
+            print("Already logged in")
+            return
 
         username = self.credentials.creds['username']
         password = self.credentials.creds['password']
@@ -63,4 +73,5 @@ class Scraper:
             print("[ERROR] Couldn't log in")
 
         driver.save_cookies()
+        driver.click(paths['notice_popup'])
 
