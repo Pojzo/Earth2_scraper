@@ -3,7 +3,13 @@ from paths import paths
 import os
 from config import DEBUG
 
-creds = {"username": "", "password": ""}
+class Credentials:
+    def __init__(self):
+        try:
+            from credentials import credentials
+            self.creds = dict(credentials)
+        except:
+            self.creds = {"username": "", "password": ""}
 
 class Scraper:
     def __init__(self, driver: webdriver.Chrome):
@@ -17,19 +23,20 @@ class Scraper:
             driver.click(paths['notice_popup'])
             return
 
-        self.load_credentials()
+        self.credentials = Credentials()
         self.login(driver)
 
-    def login(self, driver: webdriver.Chrome, username: str = creds['username'], password: str = creds['password']) -> None:
-        if DEBUG:
-            print(f"[ERROR] Logging in: {username=}, {password=}")
+    def login(self, driver: webdriver.Chrome) -> None:
+
         """ click on login button, enter credentials, and login user 
             @driver: instance of Driver class
-            @username: username for https://www.earth2.io
-            @password: password for https://www.earth2.io
-
-            if username or password is not given, user will be input them in the terminal
         """
+
+        username = self.credentials.creds['username']
+        password = self.credentials.creds['password']
+
+        if DEBUG:
+            print(f"[DEBUG] Logging in: {username=}, {password=}")
 
         if not driver.click(paths['login_btn']):
             print("[ERROR] Couldn't log in")
@@ -37,8 +44,9 @@ class Scraper:
 
         if not 'Buy and Trade' in driver.title:
             pass
-            # return 
-        
+        # return 
+
+
         if not username or not password:
             while not driver.current_url == "https://app.earth2.io/":
                 pass
@@ -55,15 +63,4 @@ class Scraper:
             print("[ERROR] Couldn't log in")
 
         driver.save_cookies()
-    
-    def load_credentials(self):
-        """ loads username and password from credentials.py """
-
-        global creds
-        try:
-            from credentials import credentials
-            creds = dict(credentials)
-        except:
-            return
-
 
