@@ -1,1 +1,1 @@
-python src/setup.py
+python src/main.py
