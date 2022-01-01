@@ -76,6 +76,7 @@ class Driver(webdriver.Chrome):
 
             time.sleep(1)
         return False
+    
 
     def click(self, xpath: str) -> bool:
         """ click on an element 
