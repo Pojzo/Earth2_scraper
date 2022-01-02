@@ -1,12 +1,17 @@
+import dataclasses
+
+
+@dataclasses.dataclass
 class Property:
-    def __init__(self, name_: str, net_worth_: float, coordinates_: tuple[float, float], location_: str):
-        """
-            @name: name of property
-            @net_worth: net worth of property 
-            @coordinates: coordinates of property, (latitude, longitude)
-            @location: precise location with country name as specified in the profile
-        """
-        self.name = name_
-        self.net_worth = net_worth_
-        self.coordinates = coordinates_
-        self.location = location_
+    deed: str
+    owned_by: str
+    land_title: str
+    land_class: int
+    tier: int
+    tiles: int
+    location: str
+    controlled_by: str
+    purchased_for: float
+    new_land_value: float
+    current_market_value: float
+    buy_now_for: float
