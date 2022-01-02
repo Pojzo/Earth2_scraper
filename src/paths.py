@@ -10,11 +10,17 @@ paths = {
     "notice_popup": '/html/body/div[2]/div/div[2]/div/div[2]/button',
     "profile": {
         "property_link": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[3]/div[{}]/div/a',
-        "property_name": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[3]/div[{}]/div/div[1]/div[1]/div/div[1]/span',
-        "property_net_worth":
-        '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[3]/div[{}]/div/div[1]/div[1]/div/div[2]/span[1]',
-        "property_coordinates":
-        '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[3]/div[{}]/div/div[1]/div[3]/div/div[1]/span/span',
-        "property_location": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[3]/div[{}]/div/div[1]/div[3]/div/div[2]/span'
+        "deed": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[2]',
+        "owner": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[4]/a/b',
+        "title": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[6]',
+        "class": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[8]',
+        "tier": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[10]/div',
+        "tiles": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[12]',
+        "location": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[14]',
+        "controlled_by": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[16]/img',
+        "purchased_for": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[18]',
+        "new_land_value": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[20]',
+        "current_market_value": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[22]',
+        "buy_now_for": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]/div/div[24]'
         }
 }
