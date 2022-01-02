@@ -9,6 +9,7 @@ paths = {
     "login_btn_continue": '/html/body/div/main/section/div/div/div/form/div[2]/button',
     "notice_popup": '/html/body/div[2]/div/div[2]/div/div[2]/button',
     "profile": {
+        "property_link": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[3]/div[{}]/div/a',
         "property_name": '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[3]/div[{}]/div/div[1]/div[1]/div/div[1]/span',
         "property_net_worth":
         '//*[@id="root"]/div/div[3]/div[1]/div[2]/div/div[3]/div[{}]/div/div[1]/div[1]/div/div[2]/span[1]',

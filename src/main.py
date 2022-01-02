@@ -7,3 +7,4 @@ driver.login()
 driver.scrape_profile()
 
 time.sleep(5)
+driver.close()

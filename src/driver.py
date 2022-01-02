@@ -1,4 +1,6 @@
 import selenium
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -124,5 +126,15 @@ class Driver(webdriver.Chrome):
         for cookie in cookies:
             self.add_cookie(cookie)
 
-    def scrape_profile(self):
+    def scrape_profile(self) -> None:
         self.scraper.scrape_profile(self)
+
+    def get_href(self, xpath: str) -> str:
+        """ get href of element
+            @xpath: xpath of element to get href
+        """
+
+        href = WebDriverWait(self, 10).until(EC.visibility_of_element_located((
+            By.XPATH, xpath))).get_attribute("href")
+
+        return href
