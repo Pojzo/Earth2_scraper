@@ -1,10 +1,9 @@
 from selenium import webdriver
 import snoop
-from selenium.webdriver.common.by import By
 from paths import paths
 from e2_property import Property
+import requests
 import os
-import time
 from config import DEBUG
 
 
@@ -13,7 +12,8 @@ class Credentials:
         try:
             from credentials import credentials
             self.creds = dict(credentials)
-        except:
+        except Exception as e:
+            print(e)
             self.creds = {"username": "", "password": ""}
 
 
@@ -82,6 +82,9 @@ class Scraper:
         driver.click(paths['notice_popup'])
 
     def scrape_profile(self, driver: webdriver.Chrome) -> None:
+        """ get links of all properties
+            @driver: instance of Driver class
+        """
         property_links = []
         index = 0
         while True:
@@ -94,3 +97,7 @@ class Scraper:
                 if False:  # xddd
                     print(e)
                 break
+
+    def create_properties(self, property_links: list[str]) -> None:
+        for link in property_links:
+            pass

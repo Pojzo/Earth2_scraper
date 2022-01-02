@@ -99,7 +99,7 @@ class Driver(webdriver.Chrome):
         if DEBUG:
             print("[DEBUG] Writing {} to {}".format(text, xpath))
 
-        """ write to input 
+        """ write to input
             returns true on success
             @xpath: xpath of input
             @text: text to write
